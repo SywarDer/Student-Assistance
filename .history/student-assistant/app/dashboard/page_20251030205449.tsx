@@ -1,0 +1,152 @@
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { TableCaption, TableHeader, TableRow, TableHead, TableBody, TableCell, TableFooter } from "@/components/ui/table";
+import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription, DialogClose } from "@radix-ui/react-dialog";
+import { Popover, PopoverTrigger, PopoverContent } from "@radix-ui/react-popover";
+import { PlusSquare, Table } from "lucide-react";
+import { Label } from "recharts";
+
+export default function Dashboard() {
+    const documents = [
+        {
+            id: "1",
+            title: "INV001",
+            date: "20/05/2001",
+            summary: "this is a summary",
+            actions: <div className="flex">
+                <Button variant="outline" size="sm" className="mr-2">Delete</Button>
+                <Button variant="outline" size="sm" className="mr-2">Download</Button>
+                <Button variant="outline" size="sm">View</Button>
+            </div>,
+        }
+    ]
+    return (
+
+        <div className="m-8 space-y-8">
+            {/*Dashboard Cards*/}
+            <div className="flex space-x-4 justify-between w-full">
+                <div className="rounded-lg p-4 w-1/3" style={{
+                    backgroundColor: "var(--chart-1)",
+                    color: "var(--card-foreground)",
+                }}>
+                    <h1 className="text-xl">Subject</h1>
+                    <h1 className="text-6xl">21</h1>
+                </div>
+                <div className="rounded-lg p-4 w-1/3" style={{
+                    backgroundColor: "var(--chart-2)",
+                    color: "var(--card-foreground)",
+                }}>
+                    <h1 className="text-xl">File</h1>
+                    <h1 className="text-6xl">15</h1>
+                </div>
+                <div className="rounded-lg p-4 w-1/3" style={{
+                    backgroundColor: "var(--chart-3)",
+                    color: "var(--card-foreground)",
+                }}>
+                    <h1 className="text-xl">FlashCards</h1>
+                    <h1 className="text-6xl">150</h1>
+                </div>
+            </div>
+
+            {/* Button new subject */}
+            <Popover>
+                <PopoverTrigger asChild>
+                    <Button variant="outline" className="cursor-pointer text-xl" style={{ backgroundColor: "var(--ring)" }}>Add Subject <PlusSquare /></Button>
+
+                </PopoverTrigger>
+                <PopoverContent className="w-80">
+                    <div className="grid gap-4">
+                        <div className="space-y-2">
+                            <h4 className="leading-none font-medium">Subject</h4>
+                            <p className="text-muted-foreground text-sm">
+                                Set the details for the subject.
+                            </p>
+                        </div>
+                        <div className="grid gap-2 ">
+                            <div className="grid grid-cols-3 items-center gap-4">
+                                <h1>Title</h1>
+                                <Input
+                                    id="width"
+                                    defaultValue="100%"
+                                    className="col-span-2 h-8"
+                                />
+                            </div>
+                            <div className="grid grid-cols-3 items-center gap-4">
+                                <h1>Summary</h1>
+                                <Input
+                                    id="maxWidth"
+                                    defaultValue="300px"
+                                    className="col-span-2 h-8"
+                                />
+                            </div>
+                            <Button className="mt-4">Create Subject</Button>
+                        </div>
+                    </div>
+                </PopoverContent>
+            </Popover>
+
+            {/** List of subjects */}
+
+            <h1 className="text-md">Subject 1</h1>
+            <table className="min-w-full border">
+                <caption className="text-left text-xl cursor-pointer">
+
+                    <Dialog>
+                        <form>
+                            <DialogTrigger asChild>
+                                <Button variant="outline">Open Dialog</Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px]">
+                                <div>
+                                    <DialogTitle>Edit profile</DialogTitle>
+                                    <DialogDescription>
+                                        Make changes to your profile here. Click save when you&apos;re
+                                        done.
+                                    </DialogDescription>
+                                </div>
+                                <div className="grid gap-4">
+                                    <div className="grid gap-3"><Label htmlFor="name-1">Name</Label>
+                                        <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
+                                    </div>
+                                    <div className="grid gap-3">
+                                        <Label htmlFor="username-1">Username</Label>
+                                        <Input id="username-1" name="username" defaultValue="@peduarte" />
+                                    </div>
+                                </div>
+                                <DialogFooter>
+                                    <DialogClose asChild>
+                                        <Button variant="outline">Cancel</Button>
+                                    </DialogClose>
+                                    <Button type="submit">Save changes</Button>
+                                </DialogFooter>
+                            </DialogContent>
+                        </form>
+                    </Dialog>
+
+                </caption>
+                <thead className="gap-4">
+                    <tr>
+                        <th className="p-4">Document</th>
+                        <th className="p-4">Title</th>
+                        <th className="p-4">Summary</th>
+                        <th className="p-4">Date</th>
+                        <th className="p-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {documents.map((doc) => (
+                        <tr key={doc.id}>
+                            <td className="p-4">{doc.id}</td>
+                            <td className="p-4">{doc.title}</td>
+                            <td className="p-4">{doc.summary}</td>
+                            <td className="p-4">{doc.date}</td>
+                            <td className="p-4">{doc.actions}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+
+        </div>
+
+    )
+}
