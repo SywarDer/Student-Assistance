@@ -25,7 +25,7 @@ const resolvers = {
       let collection =db.collection("subjects");
       const insert =collection.insertOne({ title,description,userId });
       if (insert.acknowledged)
-        return { title,description, id: insert.insertedId,userId };
+        return { title,description, id: insert.insertedId };
       return null;
     },
   

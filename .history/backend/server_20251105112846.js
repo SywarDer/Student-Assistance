@@ -35,15 +35,7 @@ app.use(
   "/graphql",
   createHandler({
     schema,
-    context: async (req) => {
-      return {
-        user: {
-          id: "default-user-001",
-          fullName: "Default User",
-          email: "default@example.com",
-        },
-      };
-    },
+    
   })
 );
 
