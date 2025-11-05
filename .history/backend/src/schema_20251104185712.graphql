@@ -1,0 +1,25 @@
+type Query {
+  subject(id:ID!): Subject
+  subjects: [Subject]
+  documents: [Document]
+}
+
+type Mutation {
+  createRecord(name: String!, position: String, level: String): Record
+  deleteRecord(id: ID!): Boolean
+  updateRecord(id: ID! name: String, position: String, level: String): Record
+}
+
+type Subject {
+  id: ID!
+  title: String!
+  description: String!
+  documents: [Document]
+}
+type Document {
+  id: ID!
+  title: String!
+  url: String!
+  summary: String!
+  dateAdded: String!
+}
